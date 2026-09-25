@@ -25,8 +25,8 @@ sudo ./install.sh
 Note: The installation compiles the aic8800_fdrv module using DKMS. This ensures that the driver will be automatically recompiled if Linux Mint updates the kernel in the future.
 
 Step 3: Reboot the System
-
 Once compilation is complete, restart your system to register the changes:
+
 sudo reboot
 
 Optional Additional Steps (Troubleshooting & Stability)
