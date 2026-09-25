@@ -17,6 +17,7 @@ sudo apt update && sudo apt install -y build-essential dkms git linux-headers-$(
 Step 2: Download and Install the Driver
 
 Clone the repository optimized for the AIC8800 chipset variant and run the installation script:
+
 git clone [https://github.com/shenmintao/aic8800d80.git](https://github.com/shenmintao/aic8800d80.git)
 cd aic8800d80
 sudo ./install.sh
