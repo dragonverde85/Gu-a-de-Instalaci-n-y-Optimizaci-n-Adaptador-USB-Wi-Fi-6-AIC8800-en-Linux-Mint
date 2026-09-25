@@ -50,3 +50,23 @@ sudo usb_modeswitch -c /etc/usb_modeswitch.d/1111:1111
 Option C: Thermal Considerations During Speed Tests
 
 Ultra-compact USB adapters lack dedicated heat sinks. Running multiple consecutive speed tests pushes the integrated circuit to 100% continuous load, which may trigger thermal protection on the chip or USB port. For standard daily use (web browsing, downloading, streaming, or gaming), the adapter will maintain stable operation without overheating.
+
+1. Load the driver automatically at system startup
+
+This command tells Linux Mint to load the aic8800_fdrv module into memory as soon as you turn on the PC:
+
+echo "aic8800_fdrv" | sudo tee -a /etc/modules
+
+2. Create an automated rule to switch the USB port
+
+This command creates a rule (udev rule) so that whenever the system detects a USB device with the disk code 1111:1111, it automatically executes the usb_modeswitch command without requiring the terminal or a password:
+
+echo 'ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="1111", ATTRS{idProduct}=="1111", RUN+="/usr/sbin/usb_modeswitch -c /etc/usb_modeswitch.d/1111:1111"' | sudo tee /etc/udev/rules.d/99-aic8800-modeswitch.rules
+
+3. Apply and restart the USB port service
+
+Update the system rules so that changes are recognized immediately:
+
+sudo udevadm control --reload-rules && sudo udevadm trigger
+
+From this point on, when restarting or turning on the laptop, the system will detect the 1111:1111 identifier, automatically switch it to antenna mode in the background, and immediately search for Wi-Fi networks.
